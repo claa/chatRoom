@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.action.excludePattern" value="/echo"></constant>
+    <package name="hello" namespace="/" extends="struts-default">
+       <action name="HelloAction" class="nuc.test.action.HelloAction">
+             <result>/hello.jsp</result>
+       </action>
+       
+       <action name="registerAction" class="nuc.test.action.registerAction" method="registerMethod">
+            <result name="registerOk">/registerOk.jsp</result>
+             <result name="error">/register.jsp</result>
+               <result name="input">/register.jsp</result>
+       </action>
+       
+        <action name="loginAction" class="nuc.test.action.loginAction" method="loginMethod">
+            <result name="loginOk">/mainFrame.jsp</result>
+             <result name="error">/login.jsp</result>
+               <result name="input">/login.jsp</result>
+       </action>
+       
+       <action name="AddFriendAction" class="nuc.test.action.AddFriendAction" method="addMethod">
+            <result name="addOk">/friendlist.jsp</result>
+         
+       </action>
+       
+       <action name="deleteFriendAction" class="nuc.test.action.deleteFriendAction" method="deleteMethod">
+            <result name="deleteOk">/friendlist.jsp</result>
+             
+       </action>
+    </package>
+    
+</struts>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//Apache Struts//XWork Validator 1.0.3//EN"
+  		"http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+
+<validators>
+    <!-- name值为需要被校验的字段，这里对email字段进行校验 -->
+    <field name="email">
+        <!-- type值为校验器名，requiredstring：非空字符串校验器 -->
+        <field-validator type="requiredstring">
+            <message>邮箱不能为空</message>
+        </field-validator>
+        <!-- 一个字段可以配置多个校验器，email：校验邮箱格式 -->
+        <field-validator type="email">
+            <message>邮箱格式不正确</message>
+        </field-validator>
+    </field>
+    
+    <field name="password">
+        <field-validator type="requiredstring">
+            <message>密码不能为空</message>
+        </field-validator>
+        <!-- stringlength：字符串长度校验 -->
+        <field-validator type="stringlength">
+            <!-- 为校验器指定参数实现不同的校验规则，minlength：最少长度 -->
+            <param name="minLength">6</param>
+            <message>密码长度不能少于6位</message>
+        </field-validator>
+    </field>
+  
+    <field name="date">
+       <field-validator type="date">
+       <param name="min">1980-11-02</param>
+       <param name="max">2020-11-11</param>
+       <message>有效日期应在${min}到${max}</message>
+       </field-validator>
+    </field>
+    
+     <field name="trueusername">
+        <field-validator type="requiredstring">
+            <message>真实姓名不能为空</message>
+        </field-validator>
+        <!-- stringlength：字符串长度校验 -->
+        <field-validator type="regex">
+             <!-- 注意！2.3.15前的版本使用 expression 参数 -->
+            <param name="regexExpression"><![CDATA[(?:[\u4E00-\u9FFF]{1,8}·\u4E00-\u9FFF]{1,8})|(?:[\u4E00-\u9FFF]{2,5})]]></param>
+            <message>真实姓名格式不正确</message>
+        </field-validator>
+    </field>
+    
+    <!-- 校验两次密码是否一致，使用 fieldexpression 校验器。expression参数指定判断用的表达式-->
+    <field name="truepassword">
+        <field-validator type="fieldexpression">
+            <!-- 表达式要写在   <![CDATA[]]>   内 -->
+            <param name="expression"><![CDATA[truepassword==password]]></param>
+            <message>两次密码不一至</message>
+        </field-validator>
+    </field>
+    
+    <!-- 校验电话格式，使用regex正则表达示校验，regexExpression参数指定正则表达式 -->
+    <field name="phone">
+        <field-validator type="requiredstring">
+            <message>手机号不能为空</message>
+        </field-validator>
+        <field-validator type="regex">
+            <!-- 注意！2.3.15前的版本使用 expression 参数 -->
+            <param name="regexExpression"><![CDATA[\d{11}]]></param>
+            <message>手机号码格式不正确</message>
+        </field-validator>
+    </field>
+    
+</validators>
+<!-- required：必填校验器，要求field的值不能为null。
+
+requiredstring：必填字符串校验器，要求field的值不能为null,并且长度大于0
+
+　　属性——trim：指定在校验之前是否去除字段串前后的空格。
+
+stringlength:字段长度校验器，要求fidle的值必须在指定的范围内，否则校验失败。
+
+　　属性——minLength:指定最小长度。   maxLength:指定量大长度。   trim：指定在校验之前是否去除字段串前后的空格。 
+
+regex：正则表达式校验器，检查衩校验的field是否匹配一个正则表达式。
+
+　　属性——expression：指定正则表达式（2.3.15版用regexExpression）。     caseSensitive：指定进行正则表达式匹配时是否区分大小写。
+
+int：整数校验器，要求field的整数值 必须在指定范围内。
+
+　　属性——min：指定最小值。   max指定最大值。
+
+double：双精度浮点数校验器，要求field的双精度浮点数值必须在指定范围内。
+
+　　属性——min：指定最小值。   max指定最大值。
+
+fieldexpression：字段OGNL表达式校验器。要求field满足一个ognl表达式。
+
+　　属性——expression：指定ognl表达式（表达式要写在 <![CDATA[]]> 内）。
+
+email：邮件地址校验器。要求如果field的值非空，则必需是合法的邮件地址。
+
+url：网址校验器。要求如果field的值非空，则必需是合法的 url 地址。
+
+date：日期校验器，要求field的日期值必须在指定范围内
+
+　　属性——min：指定最小值。   max指定最大值。
+
+conversion：转换校验器，指定在类型转换失败时，提示错误信息。
+
+visitor：用于校验action中的复合属性。它拽定一个校验文件用于校验复合属性中的属性。
+
+expression：OGNL表达式校验器。要求field满足一个ognl表达式。该逻辑表达式基于ValueStack进行求值。该校验器不可用在字段校验器风格的配置中！
+
+　　属性——expression：指定ognl表达式（表达式要写在 <![CDATA[]]> 内）。 -->
